@@ -1,0 +1,28 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+
+<br>
+<h1>Blog</h1>
+<br>
+<h3>Blog have {{ blogs.count }} post{{ blogs.count|pluralize }}</h3>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-sm-2">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{ blog.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <a href="{% url 'blog:detail' blog.id %}"><h5 class="card-title">{{ blog.title|truncatechars:20 }}</h5></a>
+                    <p class="card-text">{{ blog.description|striptags|truncatechars:80 }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ blog.date|date:'M d Y' }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
